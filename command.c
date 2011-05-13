@@ -182,8 +182,10 @@ mca_opt_toggle()
 	clear_bot();
 	clear_cmd();
 	cmd_putstr(dash);
+#if GNU_OPTIONS
 	if (optgetname)
 		cmd_putstr(dash);
+#endif
 	if (no_prompt)
 		cmd_putstr("(P)");
 	switch (flag)
@@ -306,6 +308,7 @@ mca_opt_first_char(c)
     int c;
 {
 	int flag = (optflag & ~OPT_NO_PROMPT);
+#if GNU_OPTIONS
 	if (flag == OPT_NO_TOGGLE)
 	{
 		switch (c)
@@ -317,6 +320,7 @@ mca_opt_first_char(c)
 			return (MCA_MORE);
 		}
 	} else
+#endif
 	{
 		switch (c)
 		{
@@ -336,17 +340,20 @@ mca_opt_first_char(c)
 			optflag ^= OPT_NO_PROMPT;
 			mca_opt_toggle();
 			return (MCA_MORE);
+#if GNU_OPTIONS
 		case '-':
 			/* "--" = long option name. */
 			optgetname = TRUE;
 			mca_opt_toggle();
 			return (MCA_MORE);
+#endif
 		}
 	}
 	/* Char was not handled here. */
 	return (NO_MCA);
 }
 
+#if GNU_OPTIONS
 /*
  * Add a char to a long option name.
  * See if we've got a match for an option name yet.
@@ -399,6 +406,7 @@ mca_opt_nonfirst_char(c)
 	}
 	return (MCA_MORE);
 }
+#endif
 
 /*
  * Handle a char of an option toggle command.
@@ -420,6 +428,7 @@ mca_opt_char(c)
 		if (ret != NO_MCA)
 			return (ret);
 	}
+#if GNU_OPTIONS
 	if (optgetname)
 	{
 		/* We're getting a long option name.  */
@@ -434,6 +443,7 @@ mca_opt_char(c)
 		optgetname = FALSE;
 		cmd_reset();
 	} else
+#endif
 	{
 		if (is_erase_char(c))
 			return (NO_MCA);

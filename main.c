@@ -333,6 +333,7 @@ skipsp(s)
 	return (s);
 }
 
+#if GNU_OPTIONS
 /*
  * See how many characters of two strings are identical.
  * If uppercase is true, the first string must begin with an uppercase
@@ -367,6 +368,7 @@ sprefix(ps, s, uppercase)
 	}
 	return (len);
 }
+#endif /* GNU_OPTIONS */
 
 /*
  * Exit the program.
