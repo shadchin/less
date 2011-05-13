@@ -729,7 +729,7 @@ cmd_updown(action)
 				s = "";
 			cmd_home();
 			clear_eol();
-			strcpy(cmdbuf, s);
+			strlcpy(cmdbuf, s, sizeof(cmdbuf));
 			for (cp = cmdbuf;  *cp != '\0';  )
 				cmd_right();
 			return (CC_OK);
@@ -1552,8 +1552,9 @@ make_tempname(filename)
 	char *filename;
 {
 	char lastch;
-	char *tempname = ecalloc(1, strlen(filename)+1);
-	strcpy(tempname, filename);
+	size_t len = strlen(filename) + 1;
+	char *tempname = ecalloc(1, len);
+	strlcpy(tempname, filename, len);
 	lastch = tempname[strlen(tempname)-1];
 	tempname[strlen(tempname)-1] = (lastch == 'Q') ? 'Z' : 'Q';
 	return tempname;

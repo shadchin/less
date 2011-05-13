@@ -426,7 +426,7 @@ prchar(c)
 	if ((c < 128 || !utf_mode) && !control_char(c))
 		SNPRINTF1(buf, sizeof(buf), "%c", (int) c);
 	else if (c == ESC)
-		strcpy(buf, "ESC");
+		strlcpy(buf, "ESC", sizeof(buf));
 #if IS_EBCDIC_HOST
 	else if (!binary_char(c) && c < 64)
 		SNPRINTF1(buf, sizeof(buf), "^%c",
@@ -458,7 +458,7 @@ prutfchar(ch)
 	static char buf[32];
 
 	if (ch == ESC)
-		strcpy(buf, "ESC");
+		strlcpy(buf, "ESC", sizeof(buf));
   	else if (ch < 128 && control_char(ch))
 	{
 		if (!control_char(ch ^ 0100))

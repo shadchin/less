@@ -94,11 +94,11 @@ main(argc, argv)
 		char *path  = getenv("HOMEPATH");
 		if (drive != NULL && path != NULL)
 		{
-			char *env = (char *) ecalloc(strlen(drive) + 
-					strlen(path) + 6, sizeof(char));
-			strcpy(env, "HOME=");
-			strcat(env, drive);
-			strcat(env, path);
+			size_t len = strlen(drive) + strlen(path) + 6;
+			char *env = (char *) ecalloc(len, sizeof(char));
+			strlcpy(env, "HOME=", len);
+			strlcat(env, drive, len);
+			strlcat(env, path, len);
 			putenv(env);
 		}
 	}
@@ -295,9 +295,10 @@ save(s)
 	char *s;
 {
 	register char *p;
+	size_t len = strlen(s) + 1;
 
-	p = (char *) ecalloc(strlen(s)+1, sizeof(char));
-	strcpy(p, s);
+	p = (char *) ecalloc(len, sizeof(char));
+	strlcpy(p, s, len);
 	return (p);
 }
 

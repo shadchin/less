@@ -120,17 +120,13 @@ maketagent(name, file, linenum, pattern, endline)
 	register struct tag *tp;
 
 	tp = (struct tag *) ecalloc(sizeof(struct tag), 1);
-	tp->tag_file = (char *) ecalloc(strlen(file) + 1, sizeof(char));
-	strcpy(tp->tag_file, file);
+	tp->tag_file = save(file);
 	tp->tag_linenum = linenum;
 	tp->tag_endline = endline;
 	if (pattern == NULL)
 		tp->tag_pattern = NULL;
 	else
-	{
-		tp->tag_pattern = (char *) ecalloc(strlen(pattern) + 1, sizeof(char));
-		strcpy(tp->tag_pattern, pattern);
-	}
+		tp->tag_pattern = save(pattern);
 	return (tp);
 }
 
@@ -477,6 +473,7 @@ findgtag(tag, type)
 	char buf[256];
 	FILE *fp;
 	struct tag *tp;
+	size_t len;
 
 	if (type != T_CTAGS_X && tag == NULL)
 		return TAG_NOFILE;
@@ -528,9 +525,9 @@ findgtag(tag, type)
 		qtag = shell_quote(tag);
 		if (qtag == NULL)
 			qtag = tag;
-		command = (char *) ecalloc(strlen(cmd) + strlen(flag) +
-				strlen(qtag) + 5, sizeof(char));
-		sprintf(command, "%s -x%s %s", cmd, flag, qtag);
+		len = strlen(cmd) + strlen(flag) + strlen(qtag) + 5;
+		command = (char *) ecalloc(len, sizeof(char));
+		snprintf(command, len, "%s -x%s %s", cmd, flag, qtag);
 		if (qtag != tag)
 			free(qtag);
 		fp = popen(command, "r");
@@ -542,7 +539,6 @@ findgtag(tag, type)
 		while (fgets(buf, sizeof(buf), fp))
 		{
 			char *name, *file, *line;
-			int len;
 
 			if (sigs)
 			{

@@ -211,7 +211,7 @@ strerror(err)
   
 	if (err < sys_nerr)
 		return sys_errlist[err];
-	sprintf(buf, "Error %d", err);
+	snprintf(buf, sizeof(buf), "Error %d", err);
 	return buf;
 #else
 	return ("cannot open");
@@ -228,7 +228,7 @@ errno_message(filename)
 {
 	register char *p;
 	register char *m;
-	int len;
+	size_t len;
 #if HAVE_ERRNO
 #if MUST_DEFINE_ERRNO
 	extern int errno;

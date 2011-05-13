@@ -157,10 +157,7 @@ set_pattern(info, pattern, search_type)
 		free(info->text);
 	info->text = NULL;
 	if (pattern != NULL)
-	{
-		info->text = (char *) ecalloc(1, strlen(pattern)+1);
-		strcpy(info->text, pattern);
-	}
+		info->text = save(pattern);
 	info->search_type = search_type;
 
 	/*

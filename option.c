@@ -57,7 +57,7 @@ propt(c)
 {
 	static char buf[8];
 
-	sprintf(buf, "-%s", prchar(c));
+	snprintf(buf, sizeof(buf), "-%s", prchar(c));
 	return (buf);
 }
 

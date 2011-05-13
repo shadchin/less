@@ -1147,7 +1147,7 @@ char *op;
 	register char *p;
 	static char buf[50];
 
-	(void) strcpy(buf, ":");
+	(void) strlcpy(buf, ":", sizeof(buf));
 
 	switch (OP(op)) {
 	case BOL:
@@ -1189,7 +1189,8 @@ char *op;
 	case OPEN+7:
 	case OPEN+8:
 	case OPEN+9:
-		sprintf(buf+strlen(buf), "OPEN%d", OP(op)-OPEN);
+		snprintf(buf+strlen(buf), sizeof(buf)-strlen(buf),
+		    "OPEN%d", OP(op)-OPEN);
 		p = NULL;
 		break;
 	case CLOSE+1:
@@ -1201,7 +1202,8 @@ char *op;
 	case CLOSE+7:
 	case CLOSE+8:
 	case CLOSE+9:
-		sprintf(buf+strlen(buf), "CLOSE%d", OP(op)-CLOSE);
+		snprintf(buf+strlen(buf), sizeof(buf)-strlen(buf),
+		    "CLOSE%d", OP(op)-CLOSE);
 		p = NULL;
 		break;
 	case STAR:
@@ -1215,7 +1217,7 @@ char *op;
 		break;
 	}
 	if (p != NULL)
-		(void) strcat(buf, p);
+		(void) strlcat(buf, p, sizeof(buf));
 	return(buf);
 }
 #endif

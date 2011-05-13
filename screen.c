@@ -630,19 +630,21 @@ ltget_env(capname)
 		struct env { struct env *next; char *name; char *value; };
 		static struct env *envs = NULL;
 		struct env *p;
+		size_t len;
 		for (p = envs;  p != NULL;  p = p->next)
 			if (strcmp(p->name, capname) == 0)
 				return p->value;
 		p = (struct env *) ecalloc(1, sizeof(struct env));
 		p->name = save(capname);
-		p->value = (char *) ecalloc(strlen(capname)+3, sizeof(char));
-		sprintf(p->value, "<%s>", capname);
+		len = strlen(capname) + 3;
+		p->value = (char *) ecalloc(len, sizeof(char));
+		snprintf(p->value, len, "<%s>", capname);
 		p->next = envs;
 		envs = p;
 		return p->value;
 	}
-	strcpy(name, "LESS_TERMCAP_");
-	strcat(name, capname);
+	strlcpy(name, "LESS_TERMCAP_", sizeof(name));
+	strlcat(name, capname, sizeof(name));
 	return (lgetenv(name));
 }
 
@@ -1133,8 +1135,9 @@ get_term()
 		char *termcap;
 		if ((sp = homefile("termcap.dat")) != NULL)
 		{
-			termcap = (char *) ecalloc(strlen(sp)+9, sizeof(char));
-			sprintf(termcap, "TERMCAP=%s", sp);
+			size_t len = strlen(sp) + 9;
+			termcap = (char *) ecalloc(len, sizeof(char));
+			snprintf(termcap, len, "TERMCAP=%s", sp);
 			free(sp);
 			putenv(termcap);
 		}
@@ -1278,7 +1281,7 @@ get_term()
 		t2 = "";
 	else
 	{
-		strcpy(sp, tgoto(sc_move, 0, 0));
+		strlcpy(sp, tgoto(sc_move, 0, 0), sbuf + sizeof(sbuf) - sp);
 		t2 = sp;
 		sp += strlen(sp) + 1;
 	}
@@ -1295,7 +1298,8 @@ get_term()
 		t2 = "";
 	else
 	{
-		strcpy(sp, tgoto(sc_move, 0, sc_height-1));
+		strlcpy(sp, tgoto(sc_move, 0, sc_height-1),
+		    sbuf + sizeof(sbuf) - sp);
 		t2 = sp;
 		sp += strlen(sp) + 1;
 	}
