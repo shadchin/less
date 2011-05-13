@@ -317,7 +317,7 @@ flush()
 	}
 #endif
 #endif
-	fd = (any_display) ? 1 : 2;
+	fd = (any_display) ? STDOUT_FILENO : STDERR_FILENO;
 	if (write(fd, obuf, n) != n)
 		screen_trashed = 1;
 	ob = obuf;
