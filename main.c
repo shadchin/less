@@ -175,8 +175,10 @@ main(argc, argv)
 	 * to "register" them with the ifile system.
 	 */
 	ifile = NULL_IFILE;
+#if !SMALL
 	if (dohelp)
 		ifile = get_ifile(FAKE_HELPFILE, ifile);
+#endif /* !SMALL */
 	while (argc-- > 0)
 	{
 		char *filename;

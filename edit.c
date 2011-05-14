@@ -122,6 +122,7 @@ forw_textlist(tlist, prev)
 	return (s);
 }
 
+#if !SMALL
 	public char *
 back_textlist(tlist, prev)
 	struct textlist *tlist;
@@ -147,6 +148,7 @@ back_textlist(tlist, prev)
 		s--;
 	return (s);
 }
+#endif /* !SMALL */
 
 /*
  * Close the current input file.
@@ -247,6 +249,7 @@ edit_ifile(ifile)
 	{
 		chflags = ch_getflags();
 		close_file();
+#if !SMALL
 		if ((chflags & CH_HELPFILE) && held_ifile(was_curr_ifile) <= 1)
 		{
 			/*
@@ -255,6 +258,7 @@ edit_ifile(ifile)
 			del_ifile(was_curr_ifile);
 			was_curr_ifile = old_ifile;
 		}
+#endif /* !SMALL */
 	}
 
 	if (ifile == NULL_IFILE)
@@ -453,6 +457,7 @@ edit_ifile(ifile)
 	return (0);
 }
 
+#if !SMALL
 /*
  * Edit a space-separated list of files.
  * For each filename in the list, enter it into the ifile list.
@@ -512,6 +517,7 @@ edit_list(filelist)
 	reedit_ifile(save_ifile);
 	return (edit(good_filename));
 }
+#endif /* !SMALL */
 
 /*
  * Edit the first file in the command line (ifile) list.

@@ -1378,6 +1378,7 @@ commands()
 			/*
 			 * Exit.
 			 */
+#if !SMALL
 			if (curr_ifile != NULL_IFILE && 
 			    ch_getflags() & CH_HELPFILE)
 			{
@@ -1391,6 +1392,7 @@ commands()
 				if (edit_prev(1) == 0)
 					break;
 			}
+#endif /* !SMALL */
 			if (extra != NULL)
 				quit(*extra);
 			quit(QUIT_OK);
@@ -1486,6 +1488,7 @@ commands()
 			/*
 			 * Help.
 			 */
+#if !SMALL
 			if (ch_getflags() & CH_HELPFILE)
 				break;
 			cmd_exec();
@@ -1494,6 +1497,7 @@ commands()
 			save_bs_mode = bs_mode;
 			bs_mode = BS_SPECIAL;
 			(void) edit(FAKE_HELPFILE);
+#endif /* !SMALL */
 			break;
 
 		case A_EXAMINE:

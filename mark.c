@@ -120,6 +120,7 @@ getmark(c)
 	return (m);
 }
 
+#if !SMALL
 /*
  * Is a mark letter is invalid?
  */
@@ -129,6 +130,7 @@ badmark(c)
 {
 	return (getmark(c) == NULL);
 }
+#endif /* !SMALL */
 
 /*
  * Set a user-defined mark.
@@ -209,6 +211,7 @@ gomark(c)
 	jump_loc(scrpos.pos, scrpos.ln);
 }
 
+#if !SMALL
 /*
  * Return the position associated with a given mark letter.
  *
@@ -233,6 +236,7 @@ markpos(c)
 	}
 	return (m->m_scrpos.pos);
 }
+#endif /* !SMALL */
 
 /*
  * Clear the marks associated with a specified ifile.

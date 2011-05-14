@@ -257,6 +257,7 @@ dirfile(dirname, filename)
 	return (pathname);
 }
 
+#if !SMALL
 /*
  * Return the full pathname of the given file in the "home directory".
  */
@@ -302,6 +303,7 @@ homefile(filename)
 #endif
 	return (NULL);
 }
+#endif /* !SMALL */
 
 /*
  * Expand a string, substituting any "%" with the current filename,
@@ -484,10 +486,12 @@ bin_file(f)
 	n = read(f, data, sizeof(data));
 	if (n <= 0)
 		return (0);
+#if !SMALL
 	if (utf_mode)
 	{
 		bin_count = utf_bin_count(data, n);
 	} else
+#endif /* !SAMLL */
 	{
 		pend = &data[n];
 		for (p = data;  p < pend;  )
@@ -625,6 +629,7 @@ shellcmd(cmd)
 #endif /* HAVE_POPEN */
 
 
+#if !SMALL
 /*
  * Expand a filename, doing any system-specific metacharacter substitutions.
  */
@@ -814,6 +819,7 @@ lglob(filename)
 	free(ofilename);
 	return (gfilename);
 }
+#endif /* !SMALL */
 
 /*
  * Return number of %s escapes in a string.
