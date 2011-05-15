@@ -177,7 +177,7 @@ main(argc, argv)
 	ifile = NULL_IFILE;
 #if !SMALL
 	if (dohelp)
-		ifile = get_ifile(FAKE_HELPFILE, ifile);
+		ifile = get_ifile(HELPFILE, ifile);
 #endif /* !SMALL */
 	while (argc-- > 0)
 	{

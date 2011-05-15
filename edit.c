@@ -283,6 +283,10 @@ edit_ifile(ifile)
 	qopen_filename = shell_unquote(open_filename);
 
 	chflags = 0;
+#if !SMALL
+	if (strcmp(open_filename, HELPFILE) == 0)
+		chflags |= CH_HELPFILE;
+#endif /* !SMALL */
 	if (alt_pipe != NULL)
 	{
 		/*
@@ -317,10 +321,6 @@ edit_ifile(ifile)
 	{
 		f = -1;
 		chflags |= CH_NODATA;
-	} else if (strcmp(open_filename, FAKE_HELPFILE) == 0)
-	{
-		f = -1;
-		chflags |= CH_HELPFILE;
 	} else if ((parg.p_string = bad_file(open_filename)) != NULL)
 	{
 		/*
