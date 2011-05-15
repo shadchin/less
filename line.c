@@ -114,7 +114,7 @@ expand_linebuf()
 	/*
 	 * We realloc'd the buffers; they already have the old contents.
 	 */
-	#if 0
+	#if 1
 	memset(new_buf + size_linebuf, 0, new_size - size_linebuf);
 	memset(new_attr + size_linebuf, 0, new_size - size_linebuf);
 	#endif
