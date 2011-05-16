@@ -132,6 +132,12 @@ main(argc, argv)
 
 	init_prompt();
 
+	if (less_is_more) {
+		scan_option("-G");
+		scan_option("-L");
+		scan_option("-X");
+	}
+
 	s = lgetenv(less_is_more ? "MORE" : "LESS");
 	if (s != NULL)
 		scan_option(save(s));
@@ -234,7 +240,7 @@ main(argc, argv)
 		quit(QUIT_OK);
 	}
 
-	if (missing_cap && !know_dumb)
+	if (missing_cap && !know_dumb && !less_is_more)
 		error("WARNING: terminal is not fully functional", NULL_PARG);
 	init_mark();
 	open_getchr();
