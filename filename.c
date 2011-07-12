@@ -257,7 +257,7 @@ dirfile(dirname, filename)
 	return (pathname);
 }
 
-#if !SMALL
+#if USERFILE
 /*
  * Return the full pathname of the given file in the "home directory".
  */
@@ -303,7 +303,7 @@ homefile(filename)
 #endif
 	return (NULL);
 }
-#endif /* !SMALL */
+#endif /* USERFILE */
 
 /*
  * Expand a string, substituting any "%" with the current filename,

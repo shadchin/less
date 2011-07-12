@@ -46,7 +46,7 @@ public ino_t curr_ino;
 char *curr_altfilename = NULL;
 static void *curr_altpipe;
 
-
+#if EXAMINE || TAB_COMPLETE_FILENAME
 /*
  * Textlist functions deal with a list of words separated by spaces.
  * init_textlist sets up a textlist structure.
@@ -122,7 +122,6 @@ forw_textlist(tlist, prev)
 	return (s);
 }
 
-#if !SMALL
 	public char *
 back_textlist(tlist, prev)
 	struct textlist *tlist;
@@ -148,7 +147,7 @@ back_textlist(tlist, prev)
 		s--;
 	return (s);
 }
-#endif /* !SMALL */
+#endif /* EXAMINE || TAB_COMPLETE_FILENAME */
 
 /*
  * Close the current input file.
@@ -457,7 +456,7 @@ edit_ifile(ifile)
 	return (0);
 }
 
-#if !SMALL
+#if EXAMINE
 /*
  * Edit a space-separated list of files.
  * For each filename in the list, enter it into the ifile list.
@@ -517,7 +516,7 @@ edit_list(filelist)
 	reedit_ifile(save_ifile);
 	return (edit(good_filename));
 }
-#endif /* !SMALL */
+#endif /* EXAMINE */
 
 /*
  * Edit the first file in the command line (ifile) list.

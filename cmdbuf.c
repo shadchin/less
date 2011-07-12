@@ -1645,8 +1645,10 @@ make_file_private(f)
 	static int
 histfile_modified()
 {
+#if CMD_HISTORY
 	if (mlist_search.modified)
 		return 1;
+#endif /* CMD_HISTORY */
 #if SHELL_ESCAPE || PIPEC
 	if (mlist_shell.modified)
 		return 1;
