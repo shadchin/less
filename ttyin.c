@@ -24,7 +24,7 @@ static DWORD console_mode;
 #endif
 
 public int tty;
-extern int sigs;
+extern volatile sig_atomic_t sigs;
 extern int utf_mode;
 
 /*

@@ -17,6 +17,8 @@
 #include "less.h"
 #include "charset.h"
 
+#include <err.h>
+
 static char *linebuf = NULL;	/* Buffer which holds the current output line */
 static char *attr = NULL;	/* Extension of linebuf to hold attributes */
 public int size_linebuf = 0;	/* Size of line buffer (and attr buffer) */
@@ -44,7 +46,7 @@ static int attr_swidth();
 static int attr_ewidth();
 static int do_append();
 
-extern int sigs;
+extern volatile sig_atomic_t sigs;
 extern int bs_mode;
 extern int linenums;
 extern int ctldisp;

@@ -22,7 +22,7 @@ public int no_back_scroll = 0;
 public int forw_prompt;
 public int same_pos_bell = 1;
 
-extern int sigs;
+extern volatile sig_atomic_t sigs;
 extern int top_scroll;
 extern int quiet;
 extern int sc_width, sc_height;

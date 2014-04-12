@@ -32,7 +32,7 @@
 #include <values.h>
 #endif
 
-extern int sigs;
+extern volatile sig_atomic_t sigs;
 
 /*
  * Like read() system call, but is deliberately interruptible.
