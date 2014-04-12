@@ -113,7 +113,7 @@ start:
 #endif
 #ifdef EINTR
 		if (errno == EINTR)
-			goto start;
+			return (READ_INTR);
 #endif
 #ifdef EAGAIN
 		if (errno == EAGAIN)
