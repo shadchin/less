@@ -15,6 +15,7 @@
 #include "pattern.h"
 
 extern int caseless;
+extern int less_is_more;
 
 /*
  * Compile a search pattern, for future use by match_pattern.
@@ -49,7 +50,7 @@ compile_pattern2(pattern, search_type, comp_pattern, show_error)
 #if HAVE_POSIX_REGCOMP
 	regex_t *comp = (regex_t *) ecalloc(1, sizeof(regex_t));
 	regex_t **pcomp = (regex_t **) comp_pattern;
-	if (regcomp(comp, pattern, REGCOMP_FLAG))
+	if (regcomp(comp, pattern, less_is_more ? 0 : REGCOMP_FLAG))
 	{
 		free(comp);
 		if (show_error)
