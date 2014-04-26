@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 1984-2012  Mark Nudelman
+ * Copyright (C) 1984-2013  Mark Nudelman
  *
  * You may distribute under the terms of either the GNU General Public
  * License or the Less License, as specified in the README file.
@@ -748,6 +748,8 @@ pappend(c, pos)
 
 	if (pendc)
 	{
+		if (c == '\r' && pendc == '\r')
+			return (0);
 		if (do_append(pendc, NULL, pendpos))
 			/*
 			 * Oops.  We've probably lost the char which

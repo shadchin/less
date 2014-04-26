@@ -1,4 +1,4 @@
-.TH LESSKEY 1 "Version 458: 04 Apr 2013"
+.TH LESSKEY 1 "Version 462: 26 Nov 2013"
 .SH NAME
 lesskey \- specify key bindings for less
 .SH SYNOPSIS
@@ -376,6 +376,6 @@ Suite 330, Boston, MA  02111-1307, USA.
 
 .SH AUTHOR
 .PP
-Mark Nudelman <bug-less@gnu.org>
+Mark Nudelman
 .br
 Send bug reports or comments to bug-less@gnu.org.

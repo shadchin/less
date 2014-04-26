@@ -58,6 +58,7 @@
 	public char * prutfchar ();
 	public int utf_len ();
 	public int is_utf8_well_formed ();
+	public int utf_bin_count ();
 	public LWCHAR get_wchar ();
 	public void put_wchar ();
 	public LWCHAR step_char ();
@@ -242,6 +243,7 @@
 	public int query ();
 	public int compile_pattern ();
 	public void uncompile_pattern ();
+	public int valid_pattern ();
 	public int is_null_pattern ();
 	public int match_pattern ();
 	public POSITION position ();

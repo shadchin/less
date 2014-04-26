@@ -348,9 +348,9 @@ LESSKEY(1)                                                          LESSKEY(1)
 
 
 [1mAUTHOR[0m
-       Mark Nudelman <bug-less@gnu.org>
+       Mark Nudelman
        Send bug reports or comments to bug-less@gnu.org.
 
 
 
-                           Version 458: 04 Apr 2013                 LESSKEY(1)
+                           Version 462: 26 Nov 2013                 LESSKEY(1)

@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 1984-2012  Mark Nudelman
+ * Copyright (C) 1984-2013  Mark Nudelman
  *
  * You may distribute under the terms of either the GNU General Public
  * License or the Less License, as specified in the README file.
@@ -762,6 +762,13 @@ v455  11/5/12   Fix typo.
 v456  11/8/12   Fix option string incompatibility.
 v457  12/8/12   Use new option string syntax only after --use-backslash.
 v458  4/4/13    Fix display bug in using up/down in cmd buffer.
+-----------------------------------------------------------------
+v459  5/6/13    Fix ++ bug.
+v460  6/19/13   Preliminary implementation of incremental search
+                (thanks to Matt McClure).
+                Automate construction of Unicode tables.
+v461  6/21/13   Collapse multiple CRs before LF.
+v462  11/26/13  Don't overwrite history file, just append to it.
 */
 
-char version[] = "458";
+char version[] = "462";

@@ -1,4 +1,4 @@
-.TH LESS 1 "Version 458: 04 Apr 2013"
+.TH LESS 1 "Version 462: 26 Nov 2013"
 .SH NAME
 less \- opposite of more
 .SH SYNOPSIS
@@ -611,12 +611,15 @@ If the line is specified as a fraction, the actual line number
 is recalculated if the terminal window is resized, so that the
 target line remains at the specified fraction of the screen height.
 If any form of the \-j option is used, 
-forward searches begin at the line immediately after the target line,
-and backward searches begin at the target line,
+repeated forward searches (invoked with "n" or "N")
+begin at the line immediately after the target line,
+and repeated backward searches begin at the target line,
 unless changed by \-a or \-A.
 For example, if "\-j4" is used, the target line is the
 fourth line on the screen, so forward searches begin at the fifth line
 on the screen.
+However nonrepeated searches (invoked with "/" or "?")
+always begin at the start or end of the current screen respectively.
 .IP "\-J or \-\-status-column"
 Displays a status column at the left edge of the screen.
 The status column shows the lines that matched the current search.
@@ -710,13 +713,13 @@ variable, rather than being typed in with each
 command.
 Such an option must either be the last option in the LESS variable,
 or be terminated by a dollar sign.
--Ps followed by a string changes the default (short) prompt 
+ \-Ps followed by a string changes the default (short) prompt 
 to that string.
--Pm changes the medium (\-m) prompt.
--PM changes the long (\-M) prompt.
--Ph changes the prompt for the help screen.
--P= changes the message printed by the = command.
--Pw changes the message printed while waiting for data (in the F command).
+ \-Pm changes the medium (\-m) prompt.
+ \-PM changes the long (\-M) prompt.
+ \-Ph changes the prompt for the help screen.
+ \-P= changes the message printed by the = command.
+ \-Pw changes the message printed while waiting for data (in the F command).
 All prompt strings consist of a sequence of 
 letters and special escape sequences.
 See the section on PROMPTS for more details.
@@ -1119,7 +1122,7 @@ lessopen.sh:
 .br
 	case "$1" in
 .br
-	*.Z)	uncompress -\c $1  >/tmp/less.$$  2>/dev/null
+	*.Z)	uncompress \-c $1  >/tmp/less.$$  2>/dev/null
 .br
 		if [ \-s /tmp/less.$$ ]; then 
 .br

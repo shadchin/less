@@ -7,7 +7,22 @@
       http://www.greenwoodsoftware.com/less
   You can also download the latest version of less from there.
 
-  To report bugs, suggestions or comments, send email to bug-less@gnu.org.
+  To report bugs, suggestions or comments, send email to bug-less@gnu.org
+
+======================================================================
+
+	Major changes between "less" versions 458 and 462
+
+* Don't overwrite history file; just append to it.
+
+* Treat multiple CRs before LF are like one CR (all the CRs are hidden).
+
+* Ignore -u/-U setting while viewing help file, so that 
+  underline and bold chars are displayed correctly.
+
+* Fix bug with ++ commands.
+
+* Automate construction of Unicode tables from Unicode database.
 
 ======================================================================
 

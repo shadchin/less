@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 1984-2012  Mark Nudelman
+ * Copyright (C) 1984-2013  Mark Nudelman
  *
  * You may distribute under the terms of either the GNU General Public
  * License or the Less License, as specified in the README file.
@@ -34,6 +34,7 @@ extern int top_scroll;
 extern int ignore_eoi;
 extern int secure;
 extern int hshift;
+extern int bs_mode;
 extern int show_attn;
 extern POSITION highest_hilite;
 extern char *every_first_cmd;
@@ -54,6 +55,11 @@ extern int screen_trashed;	/* The screen has been overwritten */
 extern int shift_count;
 extern int oldbot;
 extern int forw_prompt;
+extern int same_pos_bell;
+#ifdef LESS_INCREMENTAL_SEARCH
+extern int incremental_search;
+static struct mark searchstack[CMDBUF_SIZE];
+#endif /* LESS_INCREMENTAL_SEARCH */
 
 #if SHELL_ESCAPE
 static char *shellcmd = NULL;	/* For holding last shell command for "!!" */
@@ -68,6 +74,7 @@ static int optflag;
 static int optgetname;
 static POSITION bottompos;
 static int save_hshift;
+static int save_bs_mode;
 #if PIPEC
 static char pipec;
 #endif
@@ -210,7 +217,7 @@ exec_mca()
 	{
 	case A_F_SEARCH:
 	case A_B_SEARCH:
-		multi_search(cbuf, (int) number);
+		multi_search(cbuf, (int) number, 0);
 		break;
 #if HILITE_SEARCH
 	case A_FILTER:
@@ -523,6 +530,7 @@ mca_search_char(c)
 mca_char(c)
 	int c;
 {
+	char *cbuf;
 	int ret;
 
 	switch (mca)
@@ -612,6 +620,45 @@ mca_char(c)
 		exec_mca();
 		return (MCA_DONE);
 	}
+
+#ifdef LESS_INCREMENTAL_SEARCH
+	if (incremental_search && (mca == A_F_SEARCH || mca == A_B_SEARCH))
+	{
+		/*
+		 * Special case for incremental search.
+		 * Run multi_search with incremental=1
+		 * and repaint prompt after each char in search.
+		 * Don't ring the same-position bell while typing.
+		 */
+		same_pos_bell = 0;
+		if (is_erase_char(c))
+		{
+			/* Return to previous incremental search position. */
+			struct mark *m = &searchstack[len_cmdbuf()];
+			if (edit_ifile(m->m_ifile))
+				return (MCA_DONE);
+			jump_loc(m->m_scrpos.pos, m->m_scrpos.ln);
+			forw_prompt = 0;
+		} else if (len_cmdbuf() > 0)
+		{
+		    /* Remember this position for later erase_char. */
+		    struct mark *m = &searchstack[len_cmdbuf()-1];
+		    struct scrpos scrpos;
+		    get_scrpos(&scrpos);
+		    m->m_scrpos = scrpos;
+		    m->m_ifile = curr_ifile;
+		}
+		cbuf = get_cmdbuf();
+		if (len_cmdbuf() == 0)
+			undo_search();
+		else if (valid_pattern(cbuf))
+			multi_search(cbuf, (int) number, 1);
+		same_pos_bell = 1;
+		/* Repaint search prompt and pattern. */
+		mca_search();
+		cmd_putstr(cbuf);
+	}
+#endif /* LESS_INCREMENTAL_SEARCH */
 
 	/*
 	 * Need another character.
@@ -778,7 +825,7 @@ getcc()
 		 * We have just run out of ungotten chars.
 		 */
 		unget_end = 0;
-		if (len_cmdbuf() == 0 || !empty_screen())
+		if (len_cmdbuf() == 0)
 			return (getchr());
 		/*
 		 * Command is incomplete, so try to complete it.
@@ -863,9 +910,10 @@ ungetsc(s)
  * If SRCH_PAST_EOF is set, continue the search thru multiple files.
  */
 	static void
-multi_search(pattern, n)
+multi_search(pattern, n, silent)
 	char *pattern;
 	int n;
+	int silent;
 {
 	register int nomore;
 	IFILE save_ifile;
@@ -940,7 +988,7 @@ multi_search(pattern, n)
 	 * Didn't find it.
 	 * Print an error message if we haven't already.
 	 */
-	if (n > 0)
+	if (n > 0 && !silent)
 		error("Pattern not found", NULL_PARG);
 
 	if (changed_file)
@@ -1013,7 +1061,6 @@ commands()
 	IFILE old_ifile;
 	IFILE new_ifile;
 	char *tagfile;
-	int until_hilite = 0;
 
 	search_type = SRCH_FORW;
 	wscroll = (sc_height + 1) / 2;
@@ -1368,6 +1415,7 @@ commands()
 				 * previous file.
 				 */
 				hshift = save_hshift;
+				bs_mode = save_bs_mode;
 				if (edit_prev(1) == 0)
 					break;
 			}
@@ -1383,7 +1431,7 @@ commands()
 			if (number <= 0) number = 1;	\
 			mca_search();			\
 			cmd_exec();			\
-			multi_search((char *)NULL, (int) number);
+			multi_search((char *)NULL, (int) number, 0);
 
 
 		case A_F_SEARCH:
@@ -1471,6 +1519,8 @@ commands()
 			cmd_exec();
 			save_hshift = hshift;
 			hshift = 0;
+			save_bs_mode = bs_mode;
+			bs_mode = BS_SPECIAL;
 			(void) edit(FAKE_HELPFILE);
 			break;
 
