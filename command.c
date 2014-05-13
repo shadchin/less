@@ -1504,7 +1504,7 @@ commands()
 			hshift = 0;
 			save_bs_mode = bs_mode;
 			bs_mode = BS_SPECIAL;
-			(void) edit(HELPFILE);
+			(void) edit(helpfile());
 #endif /* !SMALL */
 			break;
 

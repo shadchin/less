@@ -296,3 +296,4 @@
 	public void close_getchr ();
 	public int getchr ();
 	public void (*lsignal()) ();
+	public char * helpfile ();
