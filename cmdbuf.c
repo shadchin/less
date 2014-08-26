@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 1984-2013  Mark Nudelman
+ * Copyright (C) 1984-2014  Mark Nudelman
  *
  * You may distribute under the terms of either the GNU General Public
  * License or the Less License, as specified in the README file.
@@ -1551,7 +1551,7 @@ make_tempname(filename)
 	char *tempname = ecalloc(1, strlen(filename)+1);
 	strcpy(tempname, filename);
 	lastch = tempname[strlen(tempname)-1];
-	tempname[strlen(tempname)-1] = (lastch == '~') ? '=' : '~';
+	tempname[strlen(tempname)-1] = (lastch == 'Q') ? 'Z' : 'Q';
 	return tempname;
 }
 

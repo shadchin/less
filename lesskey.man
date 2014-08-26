@@ -1,4 +1,4 @@
-LESSKEY(1)                                                          LESSKEY(1)
+LESSKEY(1)                  General Commands Manual                 LESSKEY(1)
 
 
 
@@ -173,6 +173,7 @@ LESSKEY(1)                                                          LESSKEY(1)
             \e>       goto-end
             >         goto-end
             \ke  goto-end
+            \eG       goto-end-buffered
             =         status
             ^G        status
             :f        status
@@ -353,4 +354,4 @@ LESSKEY(1)                                                          LESSKEY(1)
 
 
 
-                           Version 462: 26 Nov 2013                 LESSKEY(1)
+                           Version 466: 23 Aug 2014                 LESSKEY(1)

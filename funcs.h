@@ -38,6 +38,7 @@
 	public void sync_logfile ();
 	public int ch_seek ();
 	public int ch_end_seek ();
+	public int ch_end_buffer_seek ();
 	public int ch_beg_seek ();
 	public POSITION ch_length ();
 	public POSITION ch_tell ();
@@ -159,6 +160,7 @@
 	public POSITION back_line ();
 	public void set_attnpos ();
 	public void jump_forw ();
+	public void jump_forw_buffered ();
 	public void jump_back ();
 	public void repaint ();
 	public void jump_percent ();
@@ -269,6 +271,8 @@
 	public void clr_hilite ();
 	public void clr_filter ();
 	public int is_filtered ();
+	public POSITION next_unfiltered ();
+	public POSITION prev_unfiltered ();
 	public int is_hilited ();
 	public void chg_caseless ();
 	public void chg_hilite ();

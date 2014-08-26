@@ -1,4 +1,4 @@
-LESS(1)                                                                LESS(1)
+LESS(1)                     General Commands Manual                    LESS(1)
 
 
 
@@ -119,6 +119,10 @@ LESS(1)                                                                LESS(1)
               Go to line N in the file, default the end of the  file.   (Warn-
               ing:  this  may  be slow if N is large, or if N is not specified
               and standard input, rather than a file, is being read.)
+
+       ESC-G  Same as G, except if no number N is specified and the  input  is
+              standard  input,  goes  to  the  last  line  which  is currently
+              buffered.
 
        p or % Go to a position N percent into the file.  N should be between 0
               and 100, and may contain a decimal point.
@@ -478,7 +482,7 @@ LESS(1)                                                                LESS(1)
 
        -b[4mn[24m or --buffers=[4mn[0m
               Specifies  the  amount  of  buffer  space [4mless[24m will use for each
-              file, in units of kilobytes (1024 bytes).   By  default  64K  of
+              file, in units of kilobytes (1024 bytes).  By  default  64 K  of
               buffer  space  is used for each file (unless the file is a pipe;
               see the -B option).  The -b  option  specifies  instead  that  [4mn[0m
               kilobytes of buffer space should be used for each file.  If [4mn[24m is
@@ -490,7 +494,7 @@ LESS(1)                                                                LESS(1)
               automatically as needed.  If a large amount of data is read from
               the  pipe,  this  can cause a large amount of memory to be allo-
               cated.  The -B option disables this automatic allocation of buf-
-              fers  for pipes, so that only 64K (or the amount of space speci-
+              fers for pipes, so that only 64 K (or the amount of space speci-
               fied by the -b option) is used for the pipe.  Warning: use of -B
               can  result  in  erroneous display, since only the most recently
               viewed part of the piped data is kept  in  memory;  any  earlier
@@ -1302,6 +1306,10 @@ LESS(1)                                                                LESS(1)
        %t     Causes any trailing spaces to be removed.  Usually used  at  the
               end of the string, but may appear anywhere.
 
+       %T     Normally  expands  to the word "file".  However if viewing files
+              via a tags list using the -t option,  it  expands  to  the  word
+              "tag".
+
        %x     Replaced by the name of the next input file in the list.
 
        If any item is unknown (for example, the file size if input is a pipe),
@@ -1372,7 +1380,7 @@ LESS(1)                                                                LESS(1)
        Notice how each question mark has a matching  period,  and  how  the  %
        after the %pt is included literally by escaping it with a backslash.
 
-       ?n?f%f .?m(file %i of %m) ..?e(END) ?x- Next\: %x..%t
+       ?n?f%f .?m(%T %i of %m) ..?e(END) ?x- Next\: %x..%t";
 
        This  prints  the  filename if this is the first prompt in a file, fol-
        lowed by the "file N of N" message if there  is  more  than  one  input
@@ -1383,15 +1391,15 @@ LESS(1)                                                                LESS(1)
        respectively).   Each  is  broken  into  two lines here for readability
        only.
 
-       ?n?f%f .?m(file %i of %m) ..?e(END) ?x- Next\: %x.:
+       ?n?f%f .?m(%T %i of %m) ..?e(END) ?x- Next\: %x.:
             ?pB%pB\%:byte %bB?s/%s...%t
 
-       ?f%f .?n?m(file %i of %m) ..?ltlines %lt-%lb?L/%L. :
+       ?f%f .?n?m(%T %i of %m) ..?ltlines %lt-%lb?L/%L. :
             byte %bB?s/%s. .?e(END) ?x- Next\: %x.:?pB%pB\%..%t
 
        And here is the default message produced by the = command:
 
-       ?f%f .?m(file %i of %m) .?ltlines %lt-%lb?L/%L. .
+       ?f%f .?m(%T %i of %m) .?ltlines %lt-%lb?L/%L. .
             byte %bB?s/%s. ?e(END) :?pB%pB\%..%t
 
        The prompt expansion features are also used for another purpose: if  an
@@ -1440,8 +1448,8 @@ LESS(1)                                                                LESS(1)
        less behaves differently in these ways:
 
        The  -e  option  works  differently.  If the -e option is not set, [4mless[0m
-       behaves as if the -E option were set.  If the -e option  is  set,  [4mless[0m
-       behaves as if the -e and -F options were set.
+       behaves as if the -e option were set.  If the -e option  is  set,  [4mless[0m
+       behaves as if the -E option were set.
 
        The  -m  option  works  differently.   If the -m option is not set, the
        medium prompt is used, and it is prefixed with the  string  "--More--".
@@ -1499,7 +1507,7 @@ LESS(1)                                                                LESS(1)
        LESSANSIMIDCHARS
               Characters which may appear between the ESC  character  and  the
               end   character  in  an  ANSI  color  escape  sequence  (default
-              "0123456789;[?!"'#%()*+ ".
+              "0123456789:;[?!"'#%()*+ ".
 
        LESSBINFMT
               Format for displaying non-printable, non-control characters.
@@ -1596,7 +1604,7 @@ LESS(1)                                                                LESS(1)
 
 
 [1mCOPYRIGHT[0m
-       Copyright (C) 1984-2012  Mark Nudelman
+       Copyright (C) 1984-2014  Mark Nudelman
 
        less  is  part of the GNU project and is free software.  You can redis-
        tribute it and/or modify it under the terms of either (1) the GNU  Gen-
@@ -1624,4 +1632,4 @@ LESS(1)                                                                LESS(1)
 
 
 
-                           Version 462: 26 Nov 2013                    LESS(1)
+                           Version 466: 23 Aug 2014                    LESS(1)

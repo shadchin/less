@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 1984-2013  Mark Nudelman
+ * Copyright (C) 1984-2014  Mark Nudelman
  *
  * You may distribute under the terms of either the GNU General Public
  * License or the Less License, as specified in the README file.
@@ -53,9 +53,6 @@ public int quit_on_intr;	/* Quit on interrupt */
 public int follow_mode;		/* F cmd Follows file desc or file name? */
 public int oldbot;		/* Old bottom of screen behavior {{REMOVE}} */
 public int opt_use_backslash;	/* Use backslash escaping in option parsing */
-#ifdef LESS_INCREMENTAL_SEARCH
-public int incremental_search;	/* Display search results after each char in pattern */
-#endif /* LESS_INCREMENTAL_SEARCH */
 #if HILITE_SEARCH
 public int hilite_search;	/* Highlight matched search patterns? */
 #endif
@@ -111,9 +108,6 @@ static struct optname w_optname      = { "hilite-unread",        NULL };
 static struct optname x_optname      = { "tabs",                 NULL };
 static struct optname X__optname     = { "no-init",              NULL };
 static struct optname y_optname      = { "max-forw-scroll",      NULL };
-#ifdef LESS_INCREMENTAL_SEARCH
-static struct optname Y__optname     = { "incremental-search",   NULL };
-#endif /* LESS_INCREMENTAL_SEARCH */
 static struct optname z_optname      = { "window",               NULL };
 static struct optname quote_optname  = { "quotes",               NULL };
 static struct optname tilde_optname  = { "tilde",                NULL };
@@ -398,16 +392,6 @@ static struct loption option[] =
 			NULL
 		}
 	},
-#ifdef LESS_INCREMENTAL_SEARCH
-	{ 'Y', &Y__optname,
-		BOOL, OPT_OFF, &incremental_search, NULL,
-		{
-			"Normal search (press Enter to search)",
-			"Incremental search",
-			NULL
-		}
-	},
-#endif /* LESS_INCREMENTAL_SEARCH */
 	{ 'z', &z_optname,
 		NUMBER, -1, &swindow, NULL,
 		{
