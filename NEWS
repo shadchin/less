@@ -11,7 +11,7 @@
 
 ======================================================================
 
-	Major changes between "less" versions 458 and 466
+	Major changes between "less" versions 458 and 468
 
 * Don't overwrite history file; just append to it.
 
