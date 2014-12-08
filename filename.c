@@ -86,7 +86,7 @@ shell_unquote(str)
 	} else
 	{
 		char *esc = get_meta_escape();
-		int esclen = strlen(esc);
+		int esclen = (int) strlen(esc);
 		while (*str != '\0')
 		{
 			if (esclen > 0 && strncmp(str, esc, esclen) == 0)
@@ -150,7 +150,7 @@ shell_quote(s)
 	char *newstr;
 	int len;
 	char *esc = get_meta_escape();
-	int esclen = strlen(esc);
+	int esclen = (int) strlen(esc);
 	int use_quotes = 0;
 	int have_quotes = 0;
 
@@ -188,7 +188,7 @@ shell_quote(s)
 			 * We can't quote a string that contains quotes.
 			 */
 			return (NULL);
-		len = strlen(s) + 3;
+		len = (int) strlen(s) + 3;
 	}
 	/*
 	 * Allocate and construct the new string.
@@ -235,7 +235,7 @@ dirfile(dirname, filename)
 	/*
 	 * Construct the full pathname.
 	 */
-	len= strlen(dirname) + strlen(filename) + 2;
+	len = (int) (strlen(dirname) + strlen(filename) + 2);
 	pathname = (char *) calloc(len, sizeof(char));
 	if (pathname == NULL)
 		return (NULL);
@@ -350,7 +350,7 @@ fexpand(s)
 				if (ifile == NULL_IFILE)
 					n++;
 				else
-					n += strlen(get_filename(ifile));
+					n += (int) strlen(get_filename(ifile));
 			}
 			/*
 			 * Else it is the first char in a string of
@@ -432,7 +432,7 @@ fcomplete(s)
 		for (slash = s+strlen(s)-1;  slash > s;  slash--)
 			if (*slash == *PATHNAME_SEP || *slash == '/')
 				break;
-		len = strlen(s) + 4;
+		len = (int) strlen(s) + 4;
 		fpat = (char *) ecalloc(len, sizeof(char));
 		if (strchr(slash, '.') == NULL)
 			SNPRINTF1(fpat, len, "%s*.*", s);
@@ -441,7 +441,7 @@ fcomplete(s)
 	}
 #else
 	{
-	int len = strlen(s) + 2;
+	int len = (int) strlen(s) + 2;
 	fpat = (char *) ecalloc(len, sizeof(char));
 	SNPRINTF1(fpat, len, "%s*", s);
 	}
@@ -601,7 +601,7 @@ shellcmd(cmd)
 			fd = popen(cmd, "r");
 		} else
 		{
-			int len = strlen(shell) + strlen(esccmd) + 5;
+			int len = (int) (strlen(shell) + strlen(esccmd) + 5);
 			scmd = (char *) ecalloc(len, sizeof(char));
 			SNPRINTF3(scmd, len, "%s %s %s", shell, shell_coption(), esccmd);
 			free(esccmd);
@@ -709,14 +709,14 @@ lglob(filename)
 	gfilename = (char *) ecalloc(len, sizeof(char));
 	p = gfilename;
 	do {
-		n = strlen(drive) + strlen(dir) + strlen(fnd.GLOB_NAME) + 1;
+		n = (int) (strlen(drive) + strlen(dir) + strlen(fnd.GLOB_NAME) + 1);
 		pathname = (char *) ecalloc(n, sizeof(char));
 		SNPRINTF3(pathname, n, "%s%s%s", drive, dir, fnd.GLOB_NAME);
 		qpathname = shell_quote(pathname);
 		free(pathname);
 		if (qpathname != NULL)
 		{
-			n = strlen(qpathname);
+			n = (int) strlen(qpathname);
 			while (p - gfilename + n + 2 >= len)
 			{
 				/*
@@ -773,7 +773,7 @@ lglob(filename)
 	/*
 	 * Invoke lessecho, and read its output (a globbed list of filenames).
 	 */
-	len = strlen(lessecho) + strlen(ofilename) + (7*strlen(metachars())) + 24;
+	len = (int) (strlen(lessecho) + strlen(ofilename) + (7*strlen(metachars())) + 24);
 	cmd = (char *) ecalloc(len, sizeof(char));
 	SNPRINTF4(cmd, len, "%s -p0x%x -d0x%x -e%s ", lessecho, openquote, closequote, esc);
 	free(esc);
@@ -889,7 +889,7 @@ open_altfile(filename, pf, pfd)
 		return (NULL);
 	}
 
-	len = strlen(lessopen) + strlen(filename) + 2;
+	len = (int) (strlen(lessopen) + strlen(filename) + 2);
 	cmd = (char *) ecalloc(len, sizeof(char));
 	SNPRINTF1(cmd, len, lessopen, filename);
 	fd = shellcmd(cmd);
@@ -982,7 +982,7 @@ close_altfile(altfilename, filename, pipefd)
 		error("Invalid LESSCLOSE variable");
 		return;
 	}
-	len = strlen(lessclose) + strlen(filename) + strlen(altfilename) + 2;
+	len = (int) (strlen(lessclose) + strlen(filename) + strlen(altfilename) + 2);
 	cmd = (char *) ecalloc(len, sizeof(char));
 	SNPRINTF2(cmd, len, lessclose, filename, altfilename);
 	fd = shellcmd(cmd);

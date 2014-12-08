@@ -128,7 +128,6 @@ forw(n, pos, force, only_last, nblank)
 	int only_last;
 	int nblank;
 {
-	int eof = 0;
 	int nlines = 0;
 	int do_repaint;
 	static int first_time = 1;
@@ -222,7 +221,6 @@ forw(n, pos, force, only_last, nblank)
 				 * Even if force is true, stop when the last
 				 * line in the file reaches the top of screen.
 				 */
-				eof = 1;
 				if (!force && position(TOP) != NULL_POSITION)
 					break;
 				if (!empty_lines(0, 0) && 

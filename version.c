@@ -774,6 +774,9 @@ v465  8/9/14    More fixes from John Sullivan.
 v466  8/23/14   Add colon to LESSANSIMIDCHARS.
 v467  9/18/14   Misc. fixes.
 v468  9/18/14   Fix typo
+v469  10/2/14   Allow extra string in command to append to a multichar
+                cmd without executing it; fix bug using GNU regex.
+v470  10/5/14   Fix some compiler warnings.
 */
 
-char version[] = "468";
+char version[] = "470";

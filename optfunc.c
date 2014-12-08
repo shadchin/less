@@ -180,7 +180,7 @@ opt_j(type, s)
 		{
 
 			sprintf(buf, ".%06d", jump_sline_fraction);
-			len = strlen(buf);
+			len = (int) strlen(buf);
 			while (len > 2 && buf[len-1] == '0')
 				len--;
 			buf[len] = '\0';
@@ -245,7 +245,7 @@ opt_shift(type, s)
 		{
 
 			sprintf(buf, ".%06d", shift_count_fraction);
-			len = strlen(buf);
+			len = (int) strlen(buf);
 			while (len > 2 && buf[len-1] == '0')
 				len--;
 			buf[len] = '\0';
@@ -379,6 +379,7 @@ opt_p(type, s)
 		} else
 		{
 			plusoption = TRUE;
+			ungetcc(CHAR_END_COMMAND);
 			ungetsc(s);
 			 /*
 			  * {{ This won't work if the "/" command is
