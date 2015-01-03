@@ -411,7 +411,10 @@ edit_ifile(ifile)
 		}
 #endif
 		if (every_first_cmd != NULL)
+		{
+			ungetcc(CHAR_END_COMMAND);
 			ungetsc(every_first_cmd);
+		}
 	}
 
 	free(qopen_filename);
@@ -745,7 +748,8 @@ use_logfile(filename)
 	 */
 	filename = shell_unquote(filename);
 	exists = open(filename, OPEN_READ);
-	close(exists);
+	if (exists >= 0)
+		close(exists);
 	exists = (exists >= 0);
 
 	/*

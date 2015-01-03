@@ -1392,6 +1392,10 @@ histfile_name()
 		return (save(name));
 	}
 
+	/* See if history file is disabled in the build. */
+	if (strcmp(LESSHISTFILE, "") == 0 || strcmp(LESSHISTFILE, "-") == 0)
+		return (NULL);
+
 	/* Otherwise, file is in $HOME. */
 	home = lgetenv("HOME");
 	if (home == NULL || *home == '\0')
