@@ -1,4 +1,4 @@
-.TH LESSKEY 1 "Version 475: 02 May 2015"
+.TH LESSKEY 1 "Version 476: 06 May 2015"
 .SH NAME
 lesskey \- specify key bindings for less
 .SH SYNOPSIS
@@ -178,6 +178,8 @@ default command keys used by less:
 	\ee]		right-scroll
 	\ee(		left-scroll
 	\ee)		right-scroll
+	\ekl		left-scroll
+	\ekr		right-scroll
 	{		forw-bracket {}
 	}		back-bracket {}
 	(		forw-bracket ()

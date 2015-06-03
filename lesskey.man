@@ -161,6 +161,8 @@ LESSKEY(1)                  General Commands Manual                 LESSKEY(1)
             \e]       right-scroll
             \e(       left-scroll
             \e)       right-scroll
+            \kl       left-scroll
+            \kr       right-scroll
             {         forw-bracket {}
             }         back-bracket {}
             (         forw-bracket ()
@@ -355,4 +357,4 @@ LESSKEY(1)                  General Commands Manual                 LESSKEY(1)
 
 
 
-                           Version 475: 02 May 2015                 LESSKEY(1)
+                           Version 476: 06 May 2015                 LESSKEY(1)
