@@ -1,4 +1,4 @@
-.TH LESS 1 "Version 471: 14 Dec 2014"
+.TH LESS 1 "Version 474: 30 Jan 2015"
 .SH NAME
 less \- opposite of more
 .SH SYNOPSIS
@@ -213,7 +213,8 @@ that is, do a simple textual comparison.
 .RE
 .IP ?pattern
 Search backward in the file for the N-th line containing the pattern.
-The search starts at the line immediately before the top line displayed.
+The search starts at the last line displayed 
+(but see the \-a and \-j options, which change this).
 .sp
 Certain characters are special as in the / command:
 .RS

@@ -211,8 +211,8 @@ LESS(1)                     General Commands Manual                    LESS(1)
 
        ?pattern
               Search  backward  in  the  file for the N-th line containing the
-              pattern.  The search starts at the line immediately  before  the
-              top line displayed.
+              pattern.  The search starts at the last line displayed (but  see
+              the -a and -j options, which change this).
 
               Certain characters are special as in the / command:
 
@@ -1632,4 +1632,4 @@ LESS(1)                     General Commands Manual                    LESS(1)
 
 
 
-                           Version 471: 14 Dec 2014                    LESS(1)
+                           Version 474: 30 Jan 2015                    LESS(1)
